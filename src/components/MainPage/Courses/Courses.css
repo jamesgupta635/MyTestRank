@@ -1,0 +1,82 @@
+/* Section Styling */
+.explore-subjects {
+    padding: 40px 0;
+    background: linear-gradient(to bottom, #ffffff 50%, #091e32 50%);
+    text-align: center;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+/* Subject Cards */
+.subject-col {
+    margin-bottom: 30px;
+}
+
+.subject-card {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    background: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s ease-in-out;
+}
+
+.subject-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.subject-image {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.subject-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 15px 0;
+}
+
+/* View More Button */
+.view-more-btn {
+    background-color: #ff7f50;
+    border: none;
+    border-color: #ff7f50;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+}
+
+.view-more-btn:hover {
+    background-color: #ff4500;
+    border-color: #ff4500;
+}
+
+/* Animations */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.5s forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

@@ -1,0 +1,37 @@
+/* Container styling */
+.carousel-container {
+  margin: 50px auto;
+  padding: 20px;
+  max-width: 100%; /* Limit the width to make it look clean on larger screens */
+}
+
+/* Custom carousel styling */
+.custom-carousel {
+  border: 2px solid #ddd; /* Light border around the carousel */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
+  overflow: hidden; /* Hide overflow for smooth rounded corners */
+}
+
+/* Adjusting the size of the carousel images */
+.custom-carousel-image {
+  object-fit: cover; /* Ensure images cover the entire container without stretching */
+  height: 500px; /* Set a fixed height to maintain a uniform look */
+  border-radius: 8px; /* Round the corners of images */
+}
+
+/* Optional: Style the caption for better readability */
+.carousel-caption {
+  background-color: rgba(0, 0, 0, 0.5); /* Darken the background for better text visibility */
+  border-radius: 8px; /* Rounded corners for captions */
+  padding: 15px;
+}
+
+/* Add some spacing around the carousel captions */
+.carousel-caption h3 {
+  font-size: 2rem; /* Make the title larger for more impact */
+}
+
+.carousel-caption p {
+  font-size: 1.2rem; /* Increase the size of the description */
+}

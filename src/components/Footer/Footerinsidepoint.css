@@ -1,0 +1,112 @@
+/* Full Page Styling */
+.terms-container {
+    font-family: "Arial", sans-serif;
+    background: #f8f9fa;
+    min-height: 100vh;
+  }
+  
+  /* Header Styling */
+  .header-section {
+    text-align: center;
+    padding: 50px 20px;
+    background: linear-gradient(to right, #d4f1f4, #f8e2b0);
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+  }
+  
+  .header-section h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+  }
+  
+  .header-section p {
+    font-size: 1.2rem;
+    color: #555;
+  }
+  
+  .header-section span {
+    font-weight: bold;
+  }
+  
+  /* Content Section */
+  .content-section {
+    max-width: 900px;
+    margin: auto;
+    padding: 30px 20px;
+  }
+  
+  /* Card Styling */
+  .terms-card {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease-in-out;
+  }
+  
+  .terms-card h2 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  .terms-card h3 {
+    font-size: 1.5rem;
+    margin-top: 20px;
+    color: #333;
+  }
+  
+  .terms-card p {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+  }
+  
+  .terms-card ul {
+    padding-left: 20px;
+  }
+  
+  .terms-card ul li {
+    font-size: 1.1rem;
+    color: #444;
+  }
+  
+  /* Footer */
+  .terms-footer {
+    text-align: center;
+    background: #222;
+    color: white;
+    padding: 15px;
+    margin-top: 40px;
+    font-size: 1rem;
+    animation: slideUp 1s ease-in-out;
+  }
+  
+  .terms-footer .highlight {
+    color: #f8e2b0;
+    font-weight: bold;
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  

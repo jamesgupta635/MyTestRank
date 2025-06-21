@@ -1,32 +1,82 @@
 import React from 'react';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import NavbarMain from './components/Navbar/NavbarMain';
+import Footer from './components/Footer/Footer';
+import MainPage from './components/MainPage/MainPage';
+import SignUp from './components/Signup/Signup';
+import Login from './components/Login/Login';
+import PageNotFound from './components/PageNotFound/PageNotFound';
+import Disclaimer from './components/Footer/Disclaimer/Disclaimer';
+import PrivacyPolicy from './components/Footer/PrivacyPolicy/PrivacyPolicy';
+import TermsAndConditions from './components/Footer/TermsConditions/TermsConditions';
+import TypingScreen from './components/TypingScreen/TypingScreen';
+// Router configuration
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: (
+      <>
+        <NavbarMain />
+        <MainPage />
+        <Footer />
+      </>
+    ),
+  },
+  {
+    path: "/Login",
+    element: <Login />,
+  },
+  {
+    path: "/signup",
+    element: <SignUp />,
+  },
+  {
+    path: "/Disclaimer",
+    element: <Disclaimer />,
+  },
+  {
+    path: "/PrivacyPolicy",
+    element: <PrivacyPolicy />,
+  },
+  {
+    path: "/TermsAndConditions",
+    element: <TermsAndConditions />,
+  },
+  {
+    path: '/test',
+    element: <TypingScreen />,
+  },
+  {
+    path: '*',
+    element: <PageNotFound />,
+  },
+]);
 
+// Main App component
 function App() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-yellow-100 via-orange-100 to-pink-100 flex items-center justify-center px-4 py-10">
-      <div className="bg-white rounded-3xl shadow-2xl p-10 sm:p-12 max-w-3xl w-full text-center border border-orange-200 animate-fade-in">
-        <h1 className="text-5xl sm:text-6xl font-extrabold text-orange-500 mb-6 leading-tight">
-          🚧 Site Under Construction 🚧
-        </h1>
-        <p className="text-gray-700 text-lg sm:text-xl mb-3">
-          We're currently crafting something amazing for you.
-        </p>
-        <p className="text-gray-600 text-base sm:text-lg mb-6">
-          Please bear with us while we improve the experience. The site will be back online shortly.
-        </p>
-        <p className="mb-10">
-          &mdash; <a
-            href="mailto:[Email]"
-            className="text-orange-600 font-semibold hover:underline hover:text-orange-800 transition-colors duration-200"
-          >
-            [Check Back Soon]
-          </a>
-        </p>
-        <div className="text-sm text-gray-500">
-          Maintained by <span className="font-semibold text-orange-500">UrFirstStep</span>
-        </div>
-      </div>
-    </div>
+    <React.StrictMode>
+      <RouterProvider router={router} />
+    </React.StrictMode>
   );
 }
 
 export default App;
+
+
+
+
+////////////////Testing/////////////////////
+// import React from 'react'
+// import TermsConditions from './components/Footer/TermsConditions/TermsConditions'
+
+
+// function App() {
+//   return (
+//     <div>
+//      <TermsConditions/>
+//     </div>
+//   )
+// }
+
+// export default App
