@@ -9,6 +9,14 @@ function OptioAvailable() {
     navigate('/test');
   };
 
+  const handleCourses = () => {
+    navigate('/courses');
+  };
+
+  const handleTestAvailable = () => {
+    navigate('/test-available');
+  };
+
   return (
     <div>
       <Container className="my-5">
@@ -21,7 +29,9 @@ function OptioAvailable() {
                 <Card.Text className="text-muted mb-4">
                   Explore a wide range of courses and start your learning journey today!
                 </Card.Text>
-                <Button variant="primary" className="w-100">Explore Courses</Button>
+                <Button variant="primary" className="w-100" onClick={handleCourses}>
+                  Explore Courses
+                </Button>
               </Card.Body>
             </Card>
           </Col>
@@ -49,7 +59,9 @@ function OptioAvailable() {
                 <Card.Text className="text-muted mb-4">
                   Take the test now and assess your skills in real-time.
                 </Card.Text>
-                <Button variant="success" className="w-100">Take the Test</Button>
+                <Button variant="success" className="w-100" onClick={handleTestAvailable}>
+                  Take the Test
+                </Button>
               </Card.Body>
             </Card>
           </Col>

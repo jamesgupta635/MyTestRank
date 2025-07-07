@@ -1,10 +1,21 @@
 import React from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram } from "react-icons/fa";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 import './Footer.css';
 
 const Footer = () => {
+  const navigate = useNavigate();
+
+  // Handlers for promo buttons
+  const handleExploreTest = () => {
+    navigate('/test');
+  };
+
+  const handleExploreCourses = () => {
+    navigate('/coursesOption');
+  };
+
   return (
     <>
       {/* Promo Section */}
@@ -15,7 +26,7 @@ const Footer = () => {
               <div className="promo-content">
                 <p className="text-warning fw-bold">START YOUR JOURNEY TODAY</p>
                 <h3 className="fw-bold">Become a typing expert and boost your typing speed and accuracy to new heights!</h3>
-                <Button variant="warning" className="fw-bold mt-3 px-4">
+                <Button variant="warning" className="fw-bold mt-3 px-4" onClick={handleExploreTest}>
                   Explore Test
                 </Button>
               </div>
@@ -26,7 +37,7 @@ const Footer = () => {
               <div className="promo-content">
                 <p className="text-success fw-bold">UNLOCK YOUR POTENTIAL</p>
                 <h3 className="fw-bold">Enhance Your Skills and Stay Ahead</h3>
-                <Button variant="success" className="fw-bold mt-3 px-4">
+                <Button variant="success" className="fw-bold mt-3 px-4" onClick={handleExploreCourses}>
                   Explore Courses
                 </Button>
               </div>
@@ -47,10 +58,10 @@ const Footer = () => {
                 offered.
               </p>
               <div className="d-flex gap-3">
-                <a href="#" className="text-light"><FaFacebookF size={20} /></a>
-                <a href="#" className="text-light"><FaTwitter size={20} /></a>
-                <a href="#" className="text-light"><FaLinkedinIn size={20} /></a>
-                <a href="#" className="text-light"><FaInstagram size={20} /></a>
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-light"><FaFacebookF size={20} /></a>
+                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-light"><FaTwitter size={20} /></a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-light"><FaLinkedinIn size={20} /></a>
+                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-light"><FaInstagram size={20} /></a>
               </div>
             </Col>
 
@@ -75,7 +86,12 @@ const Footer = () => {
               <p>State/Province: Delhi</p>
               <p>Zip/Postal Code: 110002</p>
               <p><b>Phone Number:</b> 011 2331 2721</p>
-              <p><b>Email:</b> contact@mytestrank.com</p>
+              <p>
+                <b>Email:</b>{" "}
+                <a href="mailto:contact@mytestrank.com" className="text-light">
+                  contact@mytestrank.com
+                </a>
+              </p>
             </Col>
           </Row>
         </Container>

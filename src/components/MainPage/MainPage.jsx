@@ -1,7 +1,7 @@
 import React from 'react'
 import AdsBannermain from './AdsBanner/AdsBannermain';
 import OptioAvailable from './OptionAvailable/OptioAvailable';
-import Courses from './Courses/Courses'; 
+import Courses from './Courses/courses';
 import CurrentTest from './CurrentTest/CurrentTest';
 
 function MainPage() {
@@ -9,7 +9,7 @@ function MainPage() {
     <div>
     <AdsBannermain/>
     <OptioAvailable/>
-    <Courses Topic="Explore Top Courses" />
+    <Courses Topic="All Top Courses" />
     <CurrentTest/>
     </div>
   )

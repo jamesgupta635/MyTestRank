@@ -3,6 +3,7 @@ import { Container, Nav, Navbar, NavDropdown, Button } from 'react-bootstrap';
 import GoogleIcon from '../../assets/google.jpg'; // Ensure you provide the correct path to the Google icon image
 import logo from '../../assets/logo.png';
 import { Link } from 'react-router-dom';
+import './NavbarMain.css'; // Import your custom CSS for additional styles
 function NavbarMain() {
   return (
     <>

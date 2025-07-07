@@ -4,12 +4,14 @@ import NavbarMain from './components/Navbar/NavbarMain';
 import Footer from './components/Footer/Footer';
 import MainPage from './components/MainPage/MainPage';
 import SignUp from './components/Signup/Signup';
+import Login from './components/Login/Login';
 import PageNotFound from './components/PageNotFound/PageNotFound';
 import Disclaimer from './components/Footer/Disclaimer/Disclaimer';
 import PrivacyPolicy from './components/Footer/PrivacyPolicy/PrivacyPolicy';
 import TermsAndConditions from './components/Footer/TermsConditions/TermsConditions';
 import TypingScreen from './components/TypingScreen/TypingScreen';
-import Login from './components/login/Login';
+import CoursesOptoin from './components/Footer/CourseOption/CoursesOptoin';
+import CoursesExam from './components/MainPage/Courses/CoursesExam/CoursesExam';
 // Router configuration
 const router = createBrowserRouter([
   {
@@ -45,6 +47,14 @@ const router = createBrowserRouter([
   {
     path: '/test',
     element: <TypingScreen />,
+  },
+    {
+    path: '/coursesOption',
+    element: <CoursesOptoin />,
+  },
+  {
+    path: '/coursesExam',
+    element: <CoursesExam />,
   },
   {
     path: '*',
