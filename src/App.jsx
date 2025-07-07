@@ -4,7 +4,7 @@ import NavbarMain from './components/Navbar/NavbarMain';
 import Footer from './components/Footer/Footer';
 import MainPage from './components/MainPage/MainPage';
 import SignUp from './components/Signup/Signup';
-import Login from './components/Login/Login';
+import Login from './components/login/Login';
 import PageNotFound from './components/PageNotFound/PageNotFound';
 import Disclaimer from './components/Footer/Disclaimer/Disclaimer';
 import PrivacyPolicy from './components/Footer/PrivacyPolicy/PrivacyPolicy';
