@@ -10,11 +10,14 @@ function OptioAvailable() {
   };
 
   const handleCourses = () => {
-    navigate('/courses');
+    const coursesSection = document.getElementById('all-courses-section');
+    if (coursesSection) {
+      coursesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   };
 
   const handleTestAvailable = () => {
-    navigate('/test-available');
+    navigate('/all-tests');
   };
 
   return (

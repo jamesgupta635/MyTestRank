@@ -88,3 +88,41 @@
 .view-plans:hover {
     text-decoration: underline;
 }
+
+.current-test-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+  margin: 32px 0 0 0;
+  width: 100%;
+  padding: 0 4px;
+  box-sizing: border-box;
+}
+
+.current-test-card {
+  display: flex;
+  justify-content: center;
+}
+
+.pricing-card {
+  width: 100%;
+  min-height: 420px;
+  margin: 0;
+}
+
+@media (max-width: 1200px) {
+  .current-test-grid {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0 2px;
+  }
+}
+@media (max-width: 700px) {
+  .current-test-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 0 1px;
+  }
+  .pricing-card {
+    min-height: 340px;
+  }
+}

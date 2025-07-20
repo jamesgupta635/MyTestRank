@@ -63,7 +63,7 @@ const Courses = () => {
   };
 
   return (
-    <section className="course-grid-section py-5">
+    <section id="all-courses-section" className="course-grid-section py-5">
       <div className="container-fluid">
         <h2 className="course-grid-title text-center mb-4">
           All <span className="course-grid-highlight">Courses</span>

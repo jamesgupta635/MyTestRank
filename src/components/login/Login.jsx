@@ -2,6 +2,7 @@ import React from 'react';
 import './Login.css';
 import logo from '../../assets/logo.png'; 
 import HalfBackgroung from '../../assets/B2.png';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
   return (
@@ -25,7 +26,7 @@ const Login = () => {
             </div>
             <div className="form-group form-check">
               <input type="checkbox" id="rememberMe" className="form-check-input" />
-              <a href="#" className="forgot-password">Forgot Password?</a>
+              <Link to="/forgotPassword" className="forgot-password">Forgot Password?</Link>
             </div>
             <button type="submit" className="btn btn-primary btn-block">Sign In</button>
           </form>
@@ -33,7 +34,7 @@ const Login = () => {
             <p>OR SignIn With</p>
             <button className="btn btn-google">Google</button>
           </div>
-          <p className="sign-in-link">Don't have an account? <a href="#">Sign up</a></p>
+          <p className="sign-in-link">Don't have an account? <Link to="/signup">Sign up</Link></p>
         </div>
       </div>
     </div>
