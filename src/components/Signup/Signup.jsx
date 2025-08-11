@@ -1,5 +1,5 @@
 import React from 'react';
-import './SignUp.css';
+import './Signup.css';
 import logo from '../../assets/logo.png'; 
 import HalfBackgroung from '../../assets/B2.png';
 import { Link } from 'react-router-dom';
