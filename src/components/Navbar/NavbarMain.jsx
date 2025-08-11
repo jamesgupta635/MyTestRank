@@ -11,13 +11,14 @@ function NavbarMain() {
       <div className="fixed-top" style={{ backgroundColor: 'white', height: '80px', zIndex: '999' }}></div>
       
       {/* Navbar with white background and shadow */}
-      <Navbar collapseOnSelect expand="lg" bg="white" variant="light" fixed="top" className="rounded-3 shadow-lg py-2 mx-4 my-3">
+      <Navbar collapseOnSelect expand="lg" bg="white" variant="light" fixed="top" className="rounded-3 shadow-lg py-0 mx-4 my-2">
         <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-          <Navbar.Brand href="#home" className="fw-bold text-dark" style={{ marginRight: '24px', marginLeft: '8px' }}>
+          <Navbar.Brand href="#home" className="fw-bold text-dark" style={{ marginRight: '2px', marginLeft: '2px' }}>
             <img
               alt=""
               src={logo}
               className="d-inline-block align-top navbar-logo"
+         
             />
           </Navbar.Brand>
           <Container fluid style={{ padding: 0 }}>

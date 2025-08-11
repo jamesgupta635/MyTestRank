@@ -6,7 +6,7 @@ import t10 from '../CoursesImage/t10.webp';
 const allTests = [
   {
     id: 'typing-speed-test',
-    name: 'Typing Speed Test',
+    name: 'XXXXXXXXXXXXXXXXXXXXXXXXXXX',
     image: t4_0,
     description: 'Test your typing speed and accuracy with real exam patterns.',
     tags: ['Speed', 'Accuracy', 'Practice'],
@@ -15,7 +15,7 @@ const allTests = [
   },
   {
     id: 'english-typing-test',
-    name: 'English Typing Test',
+    name: 'YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY',
     image: t10,
     description: 'Practice English typing for government and competitive exams.',
     tags: ['English', 'Competitive', 'Skill Test'],
@@ -24,7 +24,7 @@ const allTests = [
   },
   {
     id: 'hindi-typing-test',
-    name: 'Hindi Typing Test',
+    name: 'DDDDDDDDDDDDDDDDDDDDDDDDDDD',
     image: t4_0,
     description: 'Improve your Hindi typing skills for various exams.',
     tags: ['Hindi', 'Skill', 'Practice'],

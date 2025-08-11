@@ -1,55 +1,77 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
-import './AdsBannermain.css'; // You can create this CSS file to add custom styles
-import imgageone from '../../../assets/B2.png';
-import imgagetwo from '../../../assets/B1.png';
-import imgagethree from '../../../assets/B3.png';
+import Spinner from 'react-bootstrap/Spinner'; // Import Spinner
+import { getBanners } from '../../../ApiCall/mainPageLoader';
+import './AdsBannermain.css';
 
 function AdsBannermain() {
+  const [banners, setBanners] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const fetchBannerData = async () => {
+      try {
+        setLoading(true);
+        const data = await getBanners();
+        setBanners(data);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBannerData();
+  }, []);
 
   const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex);
   };
 
+  if (loading) {
+    return (
+      <div className="carousel-container my-5 text-center">
+        {/*  */}
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="carousel-container my-5 text-center">
+        Error loading banners: {error.message}
+      </div>
+    );
+  }
+
   return (
     <div className="carousel-container my-5">
       <Carousel activeIndex={index} onSelect={handleSelect} className="custom-carousel">
-        <Carousel.Item>
-          <img
-            className="d-block w-100 custom-carousel-image"
-            src={imgageone}
-            alt="First slide"
-          />
-          <Carousel.Caption>
-            <h3>First slide label</h3>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            className="d-block w-100 custom-carousel-image"
-            src={imgagetwo}
-            alt="Second slide"
-          />
-          <Carousel.Caption>
-            <h3>Second slide label</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            className="d-block w-100 custom-carousel-image"
-            src={imgagethree}
-            alt="Third slide"
-          />
-          <Carousel.Caption>
-            <h3>Third slide label</h3>
-            <p>
-              Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-            </p>
-          </Carousel.Caption>
-        </Carousel.Item>
+        {banners.map((banner) => (
+          <Carousel.Item key={banner.id}>
+            <a
+              href={banner.bannerDetail.urlToDirect}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ display: 'block' }}
+            >
+              <img
+                className="d-block w-100 custom-carousel-image"
+                src={banner.bannerDetail.imageUrl}
+                alt={banner.bannerDetail.title}
+              />
+            </a>
+            <Carousel.Caption>
+              <h3>{banner.bannerDetail.title}</h3>
+              <p>{banner.bannerDetail.title_detail}</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+        ))}
       </Carousel>
     </div>
   );
