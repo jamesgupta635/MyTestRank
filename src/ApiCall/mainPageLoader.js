@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://88.222.214.204:8085';
+const API_BASE_URL = 'https://www.srv620732.hstgr.cloud';
 
 const api = axios.create({
   baseURL: API_BASE_URL,

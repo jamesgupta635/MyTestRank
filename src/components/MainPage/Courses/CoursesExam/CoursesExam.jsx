@@ -21,11 +21,11 @@ export default function CoursesExam() {
       setError(null);
       try {
         // Fetch course detail
-        const { data: course } = await axios.get(`http://88.222.214.204:8085/courses/getcoursebyid/${courseId}`);
+        const { data: course } = await axios.get(`https://www.srv620732.hstgr.cloud/courses/getcoursebyid/${courseId}`);
         setCourseDetail(course);
 
         // Fetch all tests for this course
-        const { data: testList } = await axios.get(`http://88.222.214.204:8085/fetch/alltestInCourse/${courseId}`);
+        const { data: testList } = await axios.get(`https://www.srv620732.hstgr.cloud/fetch/alltestInCourse/${courseId}`);
         setTests(testList);
       } catch (err) {
         setError(err);
