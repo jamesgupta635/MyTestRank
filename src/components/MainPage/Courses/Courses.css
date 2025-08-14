@@ -1,0 +1,137 @@
+/* Course Grid Section */
+.course-grid-section {
+  background-color: #f8f9fa; /* Example background */
+}
+
+.course-grid-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.course-grid-title .course-grid-highlight {
+  color: #007bff; /* Example highlight color */
+}
+
+/* Custom column definition for 8 columns on large screens and above */
+.course-grid-row {
+  display: flex;
+  flex-wrap: wrap; /* Allows items to wrap to the next line */
+  justify-content: center; /* Centers items in the row, especially the last one */
+  gap: 15px; /* Space between cards */
+}
+
+/* Base card styling */
+.course-grid-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  background-color: #fff;
+  padding: 15px; /* Add some padding inside the card */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content horizontally */
+  justify-content: center; /* Center content vertically */
+  text-align: center;
+  flex-shrink: 1; /* Allow cards to shrink */
+  flex-grow: 1; /* Allow cards to grow */
+
+  /* Setting a base width for the cards, which will be overridden by flexbox and media queries */
+  width: 100%; /* Default to full width on extra small screens */
+  max-width: 250px; /* Max width for individual cards to control their size */
+}
+
+.course-grid-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Image styling */
+.course-grid-img {
+  width: 100%; /* Make image fill card width */
+  height: auto; /* Maintain aspect ratio */
+  max-width: 120px; /* Control max size of the image within the card */
+  object-fit: contain; /* Ensures the entire image is visible without cropping */
+  margin-bottom: 10px; /* Space between image and text */
+}
+
+/* Course name styling */
+.course-grid-name {
+  font-size: 0.95rem; /* Adjust font size relative to card size */
+  font-weight: 500;
+  color: #555;
+  word-wrap: break-word; /* Ensure long names wrap */
+  flex-grow: 1; /* Allow text to take available space */
+  display: flex; /* Use flexbox for vertical centering if needed */
+  align-items: center; /* Center text vertically within its container */
+  justify-content: center; /* Center text horizontally */
+}
+
+/* Responsive adjustments for columns and card sizing */
+
+/* Small devices (phones, 576px and up) */
+@media (min-width: 576px) {
+  .course-grid-card {
+    flex-basis: calc(50% - 15px); /* 2 columns with gap */
+  }
+  .course-grid-img {
+    max-width: 100px; /* Slightly smaller images on small screens */
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .course-grid-card {
+    flex-basis: calc(33.333% - 15px); /* 3 columns with gap */
+  }
+  .course-grid-img {
+    max-width: 90px;
+  }
+  .course-grid-name {
+    font-size: 0.9rem;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .course-grid-card {
+    flex-basis: calc(25% - 15px); /* 4 columns with gap */
+  }
+  .course-grid-img {
+    max-width: 80px;
+  }
+  .course-grid-name {
+    font-size: 0.85rem;
+  }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .course-grid-card {
+    flex-basis: calc(16.666% - 15px); /* 6 columns with gap */
+  }
+  .course-grid-img {
+    max-width: 70px;
+  }
+  .course-grid-name {
+    font-size: 0.8rem;
+  }
+}
+
+/* Custom breakpoint for 8 columns (adjust as needed, e.g., 1400px or 1600px) */
+@media (min-width: 1400px) { /* Example: For very wide screens */
+  .course-grid-row {
+    justify-content: center; /* Ensure centering even with many items */
+  }
+  .course-grid-card {
+    flex-basis: calc(12.5% - 15px); /* 8 columns: 100% / 8 = 12.5% */
+  }
+  .course-grid-img {
+    max-width: 60px;
+  }
+  .course-grid-name {
+    font-size: 0.75rem;
+  }
+}

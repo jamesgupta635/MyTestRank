@@ -1,0 +1,25 @@
+/* Fixed top background */
+.navbar-background {
+  background-color: white;
+  height: 80px;
+  z-index: 999;
+}
+
+/* Navbar logo */
+.navbar-logo {
+  width: 150px;
+  height: auto;
+}
+
+/* Hover effect for links */
+.hover-effect:hover {
+  background-color: #f8f9fa;
+  transition: background-color 0.3s ease;
+}
+
+/* Google icon styling */
+.google-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
