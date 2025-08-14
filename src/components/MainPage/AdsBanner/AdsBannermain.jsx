@@ -55,20 +55,20 @@ function AdsBannermain() {
         {banners.map((banner) => (
           <Carousel.Item key={banner.id}>
             <a
-              href={banner.bannerDetail.urlToDirect}
+              href={banner.urlToDirect}
               target="_blank"
               rel="noopener noreferrer"
               style={{ display: 'block' }}
             >
               <img
                 className="d-block w-100 custom-carousel-image"
-                src={banner.bannerDetail.imageUrl}
-                alt={banner.bannerDetail.title}
+                src={banner.imageUrl}
+                alt={banner.title}
               />
             </a>
             <Carousel.Caption>
-              <h3>{banner.bannerDetail.title}</h3>
-              <p>{banner.bannerDetail.title_detail}</p>
+              <h3>{banner.title}</h3>
+              <p>{banner.title_detail}</p>
             </Carousel.Caption>
           </Carousel.Item>
         ))}
