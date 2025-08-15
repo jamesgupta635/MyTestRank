@@ -2,7 +2,7 @@ import React from 'react'
 import AdsBannermain from './AdsBanner/AdsBannermain';
 import OptioAvailable from './OptionAvailable/OptioAvailable';
 import Courses from './Courses/Courses';
-import CurrentTest from './CurrentTest/CurrentPlans';
+import CurrentPlan from './CurrentPlans/CurrentPlans';
 
 function MainPage() {
   return (
@@ -10,7 +10,7 @@ function MainPage() {
       <AdsBannermain/>
       <OptioAvailable/>
       <Courses Topic="All Top Courses" />
-      <CurrentTest/>
+      <CurrentPlan/>
     </div>
   )
 }

@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './CoursesExam.css';
 
-
 export default function CoursesExam() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -42,8 +41,40 @@ export default function CoursesExam() {
     }
   }, [courseId]);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });
+  };
+
+  const calculateDiscountedPrice = (originalPrice, discountPercentage) => {
+    return originalPrice - (originalPrice * discountPercentage / 100);
+  };
+
+  if (loading) {
+    return (
+      <div className="courses-exam-container">
+        <div className="tests-loading-container">
+          <div className="tests-loading-spinner"></div>
+          <p>Loading course and tests...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="courses-exam-container">
+        <div className="tests-error-container">
+          <p className="tests-error-message">Error: {error.message}</p>
+          <button className="back-btn" onClick={() => navigate(-1)}>&larr; Go Back</button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="courses-exam-container">
@@ -52,9 +83,12 @@ export default function CoursesExam() {
       {/* Course Detail Section */}
       <div className="courses-exam-header">
         <img
-          src={courseDetail?.image || location.state?.courseImage || t4_0}
+          src={courseDetail?.imageUrl || location.state?.courseImage}
           alt={courseDetail?.name || 'Course'}
           className="courses-exam-image"
+          onError={(e) => {
+            e.target.src = 'https://via.placeholder.com/130x130?text=Course+Image';
+          }}
         />
         <div className="courses-exam-header-content">
           <h2 className="courses-exam-title">{courseDetail?.name}</h2>
@@ -67,28 +101,104 @@ export default function CoursesExam() {
         </div>
       </div>
 
-      {/* Test Section */}
-      <h4 className="related-courses-title">All Tests in this Course</h4>
-      <div className="related-courses-grid">
-        {tests.length === 0 && <div>No tests found for this course.</div>}
-        {tests.map((test, i) => (
-          <div className="related-course-card" key={test.id || i}>
-            <div className="related-course-card-header">
-              <span className="related-course-duration">{test.duration || 'N/A'}</span>
-            </div>
-            <div className="related-course-card-body">
-              <div className="related-course-info">
-                <h5 className="related-course-title">{test.name}</h5>
-                <ul className="related-course-features">
-                  <li>Type: {test.type}</li>
-                  <li>Max Marks: {test.maxMarks}</li>
-                  {/* Add more test details as needed */}
-                </ul>
-              </div>
-            </div>
-            {/* Add a button or link if you want to start the test */}
+      {/* Tests Section */}
+      <div className="all-tests-container">
+        <div className="all-tests-header">
+          <h1 className="all-tests-title">Tests in {courseDetail?.name}</h1>
+          <p className="all-tests-subtitle">
+            Available tests for this course
+          </p>
+          <div className="all-tests-stats">
+            <span className="stat-item">
+              <strong>{tests.length}</strong> Total Tests
+            </span>
           </div>
-        ))}
+        </div>
+
+        {tests.length === 0 ? (
+          <div className="tests-empty-container">
+            <div className="empty-icon">📝</div>
+            <h3>No Tests Available</h3>
+            <p>This course doesn't have any tests yet.</p>
+          </div>
+        ) : (
+          <div className="all-tests-grid">
+            {tests.map((test) => (
+              <div className="test-card" key={test.id}>
+                <div className="test-card-header">
+                  <div className="test-image-container">
+                    <img 
+                      src={test.imageUrl} 
+                      alt={test.title} 
+                      className="test-image"
+                      onError={(e) => {
+                        e.target.src = 'https://via.placeholder.com/300x200?text=Test+Image';
+                      }}
+                    />
+                    <div className="test-type-badge">{test.type}</div>
+                    {test.discountPercentage > 0 && (
+                      <div className="test-discount-badge">
+                        {test.discountPercentage}% OFF
+                      </div>
+                    )}
+                  </div>
+                </div>
+                
+                <div className="test-card-body">
+                  <h3 className="test-title">{test.title}</h3>
+                  <p className="test-description">{test.description}</p>
+                  
+                  <div className="test-details">
+                    <div className="test-detail-item">
+                      <span className="detail-label">Duration:</span>
+                      <span className="detail-value">{test.durationInMinutes} min</span>
+                    </div>
+                    <div className="test-detail-item">
+                      <span className="detail-label">Language:</span>
+                      <span className="detail-value">{test.language}</span>
+                    </div>
+                    <div className="test-detail-item">
+                      <span className="detail-label">Date:</span>
+                      <span className="detail-value">{test.date}</span>
+                    </div>
+                  </div>
+
+                  {test.contain && (
+                    <div className="test-content-preview">
+                      <p className="content-text">{test.contain}</p>
+                    </div>
+                  )}
+
+                  <div className="test-pricing">
+                    {test.discountPercentage > 0 ? (
+                      <>
+                        <div className="test-original-price">
+                          <span className="currency">₹</span>
+                          <span className="amount">{test.price}</span>
+                        </div>
+                        <div className="test-discounted-price">
+                          <span className="currency">₹</span>
+                          <span className="amount">{calculateDiscountedPrice(test.price, test.discountPercentage).toFixed(0)}</span>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="test-price">
+                        <span className="currency">₹</span>
+                        <span className="amount">{test.price}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="test-card-footer">
+                  <button className="test-start-btn">
+                    Start Test
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
