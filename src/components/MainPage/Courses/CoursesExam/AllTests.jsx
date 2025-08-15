@@ -17,7 +17,7 @@ export default function AllTests() {
   const fetchTests = async (page) => {
     try {
       setLoading(true);
-      const response = await fetch(`http://localhost:8085/fetch/alltests?page=${page}&size=${pageSize}`);
+      const response = await fetch(`https://www.srv620732.hstgr.cloud/fetch/alltests?page=${page}&size=${pageSize}`);
       if (!response.ok) {
         throw new Error('Failed to fetch tests');
       }
