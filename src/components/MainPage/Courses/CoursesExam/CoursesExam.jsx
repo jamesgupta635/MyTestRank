@@ -191,7 +191,15 @@ export default function CoursesExam() {
                 </div>
 
                 <div className="test-card-footer">
-                  <button className="test-start-btn">
+                  <button 
+                    className="test-start-btn"
+                    onClick={() => navigate('/test', {
+                      state: {
+                        testData: test,
+                        courseData: courseDetail
+                      }
+                    })}
+                  >
                     Start Test
                   </button>
                 </div>
