@@ -90,7 +90,7 @@ const SignUp = () => {
     setErrors({});
 
     try {
-      const response = await fetch('https://www.srv620732.hstgr.cloud:8085/user/signup', {
+      const response = await fetch('https://www.srv620732.hstgr.cloud/user/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

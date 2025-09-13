@@ -69,7 +69,7 @@ const Login = () => {
     setErrors({});
 
     try {
-      const response = await fetch('https://www.srv620732.hstgr.cloud', {
+      const response = await fetch('https://www.srv620732.hstgr.cloud/authenticate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
