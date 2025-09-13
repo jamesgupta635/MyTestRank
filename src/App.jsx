@@ -1,5 +1,7 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { AuthProvider } from './contexts/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
 import NavbarMain from './components/Navbar/NavbarMain';
 import Footer from './components/Footer/Footer';
 import MainPage from './components/MainPage/MainPage';
@@ -47,19 +49,35 @@ const router = createBrowserRouter([
   },
   {
     path: '/test',
-    element: <TypingScreen />,
+    element: (
+      <ProtectedRoute>
+        <TypingScreen />
+      </ProtectedRoute>
+    ),
   },
-    {
+  {
     path: '/coursesOption',
-    element: <CoursesOptoin />,
+    element: (
+      <ProtectedRoute>
+        <CoursesOptoin />
+      </ProtectedRoute>
+    ),
   },
   {
     path: '/coursesExam',
-    element: <CoursesExam />,
+    element: (
+      <ProtectedRoute>
+        <CoursesExam />
+      </ProtectedRoute>
+    ),
   },
   {
     path: '/all-tests',
-    element: <AllTests />, // New page for all tests
+    element: (
+      <ProtectedRoute>
+        <AllTests />
+      </ProtectedRoute>
+    ),
   },
   {
     path: '*',
@@ -71,7 +89,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <React.StrictMode>
-      <RouterProvider router={router} />
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
     </React.StrictMode>
   );
 }

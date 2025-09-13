@@ -270,7 +270,7 @@ const TypingScreen = () => {
       </Row>
 
       <Row className="w-100 justify-content-center mb-4">
-        <Col xs={120} sm={12} md={550} lg={80} xl={150} className="mx-auto">
+        <Col xs={12} sm={11} md={10} lg={9} xl={8} className="mx-auto">
           <TypingCard
             language={language}
             sentence={sentence}
