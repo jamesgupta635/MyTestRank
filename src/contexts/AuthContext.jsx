@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { post } from '../utils/api';
 
 const AuthContext = createContext();
 
@@ -26,26 +27,9 @@ export const AuthProvider = ({ children }) => {
     if (token && userEmail) {
       try {
         // Verify token with server
-        const response = await fetch('https://www.srv620732.hstgr.cloud85/verify-token', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          },
-          body: JSON.stringify({ token })
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          setIsAuthenticated(true);
-          setUser({ email: userEmail, ...data });
-        } else {
-          // Token is invalid, clear it
-          localStorage.removeItem('jwtToken');
-          localStorage.removeItem('userEmail');
-          setIsAuthenticated(false);
-          setUser(null);
-        }
+        const data = await post('/verify-token', { token });
+        setIsAuthenticated(true);
+        setUser({ email: userEmail, ...data });
       } catch (error) {
         console.error('Token verification failed:', error);
         // On network error, assume token is valid for now

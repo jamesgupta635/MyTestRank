@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { publicPost } from '../../utils/api';
 import './Signup.css';
 import logo from '../../assets/logo.png'; 
 import HalfBackgroung from '../../assets/B2.png';
@@ -90,51 +91,28 @@ const SignUp = () => {
     setErrors({});
 
     try {
-      const response = await fetch('https://www.srv620732.hstgr.cloud/user/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          firstName: formData.firstName.trim(),
-          lastName: formData.lastName.trim(),
-          phone: formData.phone.trim(),
-          email: formData.email.trim(),
-          password: formData.password
-        })
+      const data = await publicPost('/user/signup', {
+        firstName: formData.firstName.trim(),
+        lastName: formData.lastName.trim(),
+        phone: formData.phone.trim(),
+        email: formData.email.trim(),
+        password: formData.password
       });
 
-      const data = await response.json();
-
-      if (response.ok) {
-        setSuccessMessage('Account created successfully! Redirecting to login...');
-        // Clear form
-        setFormData({
-          firstName: '',
-          lastName: '',
-          phone: '',
-          email: '',
-          password: ''
-        });
-        
-        // Redirect to login after 2 seconds
-        setTimeout(() => {
-          navigate('/Login');
-        }, 2000);
-      } else {
-        // Handle API errors
-        if (data.message) {
-          if (data.message.includes('email')) {
-            setErrors({ email: 'This email is already registered' });
-          } else if (data.message.includes('phone')) {
-            setErrors({ phone: 'This phone number is already registered' });
-          } else {
-            setErrors({ general: data.message });
-          }
-        } else {
-          setErrors({ general: 'An error occurred. Please try again.' });
-        }
-      }
+      setSuccessMessage('Account created successfully! Redirecting to login...');
+      // Clear form
+      setFormData({
+        firstName: '',
+        lastName: '',
+        phone: '',
+        email: '',
+        password: ''
+      });
+      
+      // Redirect to login after 2 seconds
+      setTimeout(() => {
+        navigate('/Login');
+      }, 2000);
     } catch (error) {
       console.error('Signup error:', error);
       setErrors({ general: 'Network error. Please check your connection and try again.' });

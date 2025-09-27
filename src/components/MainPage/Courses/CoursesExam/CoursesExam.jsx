@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { axiosInstance } from '../../../../utils/api';
 import './CoursesExam.css';
 
 export default function CoursesExam() {
@@ -20,11 +20,11 @@ export default function CoursesExam() {
       setError(null);
       try {
         // Fetch course detail
-        const { data: course } = await axios.get(`https://www.srv620732.hstgr.cloud/courses/getcoursebyid/${courseId}`);
+        const { data: course } = await axiosInstance.get(`/courses/getcoursebyid/${courseId}`);
         setCourseDetail(course);
 
         // Fetch all tests for this course
-        const { data: testList } = await axios.get(`https://www.srv620732.hstgr.cloud/fetch/alltestInCourse/${courseId}`);
+        const { data: testList } = await axiosInstance.get(`/fetch/alltestInCourse/${courseId}`);
         setTests(testList);
       } catch (err) {
         setError(err);

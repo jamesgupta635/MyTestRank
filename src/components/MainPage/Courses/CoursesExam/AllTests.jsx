@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { get } from '../../../../utils/api';
 import './CoursesExam.css';
 
 export default function AllTests() {
@@ -17,11 +18,7 @@ export default function AllTests() {
   const fetchTests = async (page) => {
     try {
       setLoading(true);
-      const response = await fetch(`https://www.srv620732.hstgr.cloud/fetch/alltests?page=${page}&size=${pageSize}`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch tests');
-      }
-      const data = await response.json();
+      const data = await get(`/fetch/alltests?page=${page}&size=${pageSize}`);
       setTests(data.content);
       setTotalPages(data.totalPages);
       setTotalElements(data.totalElements);

@@ -15,6 +15,7 @@ import TypingScreen from './components/TypingScreen/TypingScreen';
 import CoursesOptoin from './components/Footer/CourseOption/CoursesOptoin';
 import CoursesExam from './components/MainPage/Courses/CoursesExam/CoursesExam';
 import AllTests from './components/MainPage/Courses/CoursesExam/AllTests';
+import UserDashboard from './components/UserDashboard/UserDashboard';
 // Router configuration
 const router = createBrowserRouter([
   {
@@ -76,6 +77,14 @@ const router = createBrowserRouter([
     element: (
       <ProtectedRoute>
         <AllTests />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: '/dashboard',
+    element: (
+      <ProtectedRoute>
+        <UserDashboard />
       </ProtectedRoute>
     ),
   },

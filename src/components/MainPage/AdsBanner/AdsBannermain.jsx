@@ -60,11 +60,13 @@ function AdsBannermain() {
               rel="noopener noreferrer"
               style={{ display: 'block' }}
             >
-              <img
-                className="d-block w-100 custom-carousel-image"
-                src={banner.imageUrl}
-                alt={banner.title}
-              />
+              <div className="carousel-image-container">
+                <img
+                  className="d-block w-100 custom-carousel-image"
+                  src={banner.imageUrl}
+                  alt={banner.title}
+                />
+              </div>
             </a>
             <Carousel.Caption>
               <h3>{banner.title}</h3>

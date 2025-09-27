@@ -1,26 +1,16 @@
-import axios from 'axios';
+import { publicGet } from '../utils/api';
 
-const API_BASE_URL = 'https://www.srv620732.hstgr.cloud';
-
-const api = axios.create({
-  baseURL: API_BASE_URL,
-  timeout: 10000,
-});
-
-// Individual API calls
+// Individual API calls using public endpoints
 export const getBanners = async () => {
-  const response = await api.get('/banner/getBanners');
-  return response.data;
+  return await publicGet('/banner/getBanners');
 };
 
 export const getAllCourses = async () => {
-  const response = await api.get('/fetch/allCourseMainPage');
-  return response.data;
+  return await publicGet('/fetch/allCourseMainPage');
 };
 
 export const getAllPlans = async () => {
-  const response = await api.get('/plans/allPlans');
-  return response.data;
+  return await publicGet('/plans/allPlans');
 };
 
 // Main loader function

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import { publicPost } from '../../utils/api';
 import './Login.css';
 import logo from '../../assets/logo.png'; 
 import HalfBackgroung from '../../assets/B2.png';
@@ -69,37 +70,16 @@ const Login = () => {
     setErrors({});
 
     try {
-      const response = await fetch('https://www.srv620732.hstgr.cloud/authenticate', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: formData.email.trim(),
-          password: formData.password
-        })
+      const data = await publicPost('/authenticate', {
+        email: formData.email.trim(),
+        password: formData.password
       });
 
-      const data = await response.json();
-
-      if (response.ok) {
-        // Use AuthContext to handle login
-        login(data.token, formData.email, data.user || {});
-        
-        // Redirect to home page
-        navigate('/');
-      } else {
-        // Handle API errors
-        if (data.message) {
-          if (data.message.includes('Invalid credentials') || data.message.includes('User not found')) {
-            setErrors({ general: 'Invalid email or password' });
-          } else {
-            setErrors({ general: data.message });
-          }
-        } else {
-          setErrors({ general: 'Login failed. Please try again.' });
-        }
-      }
+      // Use AuthContext to handle login
+      login(data.token, formData.email, data.user || {});
+      
+      // Redirect to user dashboard
+      navigate('/dashboard');
     } catch (error) {
       console.error('Login error:', error);
       setErrors({ general: 'Network error. Please check your connection and try again.' });

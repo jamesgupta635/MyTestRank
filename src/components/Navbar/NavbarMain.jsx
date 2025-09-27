@@ -29,6 +29,11 @@ function NavbarMain() {
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="me-auto">
+                {isAuthenticated && (
+                  <Nav.Link as={Link} to="/dashboard" className="text-dark py-2 px-3 rounded hover-effect">
+                    Dashboard
+                  </Nav.Link>
+                )}
                 <Nav.Link as={Link} to="/coursesExam" className="text-dark py-2 px-3 rounded hover-effect">
                   Courses
                 </Nav.Link>
