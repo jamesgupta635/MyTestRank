@@ -1,42 +1,87 @@
-import React from 'react';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Container, Row, Col, Card, Button, Badge, ProgressBar } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
+import { getUserStats, getRecentTests, getAchievements } from '../../services/userService';
 import './UserDashboard.css';
 
 const UserDashboard = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const [userStats, setUserStats] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [recentTests, setRecentTests] = useState([]);
+  const [achievements, setAchievements] = useState([]);
+
+  useEffect(() => {
+    fetchUserData();
+  }, []);
+
+  const fetchUserData = async () => {
+    try {
+      setLoading(true);
+      
+      // Fetch all user data in parallel
+      const [stats, tests, achievements] = await Promise.all([
+        getUserStats(),
+        getRecentTests(),
+        getAchievements()
+      ]);
+      
+      setUserStats(stats);
+      setRecentTests(tests);
+      setAchievements(achievements);
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+      // Set default values if API fails
+      setUserStats({
+        testsCompleted: 0,
+        averageSpeed: 0,
+        totalTimeSpent: 0,
+        currentStreak: 0,
+        bestSpeed: 0,
+        level: 1
+      });
+      setRecentTests([]);
+      setAchievements([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleLogout = () => {
     logout();
     navigate('/Login');
   };
 
+  const handleGoToMainPage = () => {
+    navigate('/');
+  };
+
   const dashboardStats = [
     {
       title: 'Tests Completed',
-      value: '12',
+      value: userStats?.testsCompleted || '0',
       icon: '📊',
       color: 'primary'
     },
     {
       title: 'Average Speed',
-      value: '45 WPM',
+      value: `${userStats?.averageSpeed || 0} WPM`,
       icon: '⚡',
       color: 'success'
     },
     {
-      title: 'Accuracy Rate',
-      value: '92%',
-      icon: '🎯',
-      color: 'info'
+      title: 'Current Streak',
+      value: `${userStats?.currentStreak || 0} days`,
+      icon: '🔥',
+      color: 'warning'
     },
     {
       title: 'Total Time',
-      value: '2h 30m',
+      value: `${userStats?.totalTimeSpent || 0} min`,
       icon: '⏱️',
-      color: 'warning'
+      color: 'info'
     }
   ];
 
@@ -63,13 +108,28 @@ const UserDashboard = () => {
       color: 'info'
     },
     {
-      title: 'View Profile',
-      description: 'Manage your profile',
-      link: '#',
-      icon: '👤',
+      title: 'Main Page',
+      description: 'Go back to main page',
+      onClick: handleGoToMainPage,
+      icon: '🏠',
       color: 'secondary'
     }
   ];
+
+  if (loading) {
+    return (
+      <div className="user-dashboard">
+        <div className="d-flex justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
+          <div className="text-center">
+            <div className="spinner-border text-primary" role="status">
+              <span className="visually-hidden">Loading...</span>
+            </div>
+            <p className="mt-3">Loading your dashboard...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="user-dashboard">
@@ -93,13 +153,22 @@ const UserDashboard = () => {
               </div>
             </Col>
             <Col xs="auto">
-              <Button 
-                variant="outline-danger" 
-                onClick={handleLogout}
-                className="logout-btn"
-              >
-                Logout
-              </Button>
+              <div className="d-flex gap-2">
+                <Button 
+                  variant="outline-primary" 
+                  onClick={handleGoToMainPage}
+                  className="me-2"
+                >
+                  🏠 Main Page
+                </Button>
+                <Button 
+                  variant="outline-danger" 
+                  onClick={handleLogout}
+                  className="logout-btn"
+                >
+                  Logout
+                </Button>
+              </div>
             </Col>
           </Row>
         </Container>
@@ -128,6 +197,63 @@ const UserDashboard = () => {
           </Col>
         </Row>
 
+        {/* Level Progress Section */}
+        {userStats && (
+          <Row className="mb-5">
+            <Col>
+              <Card className="level-progress-card">
+                <Card.Body>
+                  <div className="d-flex justify-content-between align-items-center mb-3">
+                    <h3 className="mb-0">Level Progress</h3>
+                    <Badge bg="primary" className="fs-6">Level {userStats.level || 1}</Badge>
+                  </div>
+                  <div className="mb-2">
+                    <div className="d-flex justify-content-between">
+                      <span>Progress to next level</span>
+                      <span>{Math.min(100, ((userStats.testsCompleted || 0) * 10))}%</span>
+                    </div>
+                    <ProgressBar 
+                      now={Math.min(100, ((userStats.testsCompleted || 0) * 10))} 
+                      variant="success" 
+                      className="mb-2"
+                    />
+                    <small className="text-muted">
+                      Complete {Math.max(0, 10 - (userStats.testsCompleted || 0))} more tests to reach next level
+                    </small>
+                  </div>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+        )}
+
+        {/* Achievements Section */}
+        {achievements.length > 0 && (
+          <Row className="mb-5">
+            <Col>
+              <h2 className="section-title">Achievements</h2>
+              <Row className="g-4">
+                {achievements.slice(0, 4).map((achievement, index) => (
+                  <Col xs={12} sm={6} lg={3} key={index}>
+                    <Card className="achievement-card">
+                      <Card.Body className="text-center">
+                        <div className="achievement-icon">
+                          {achievement.icon || '🏆'}
+                        </div>
+                        <h6 className="achievement-title">{achievement.name}</h6>
+                        <p className="achievement-description">{achievement.description}</p>
+                        <Badge bg={achievement.unlocked ? 'success' : 'secondary'}>
+                          {achievement.unlocked ? 'Unlocked' : 'Locked'}
+                        </Badge>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                ))}
+              </Row>
+            </Col>
+          </Row>
+        )}
+
         {/* Quick Actions Section */}
         <Row className="mb-5">
           <Col>
@@ -137,9 +263,10 @@ const UserDashboard = () => {
                 <Col xs={12} sm={6} lg={3} key={index}>
                   <Card 
                     className={`action-card border-${action.color} h-100`}
-                    as={Link}
+                    as={action.link ? Link : 'div'}
                     to={action.link}
-                    style={{ textDecoration: 'none' }}
+                    onClick={action.onClick}
+                    style={{ textDecoration: 'none', cursor: 'pointer' }}
                   >
                     <Card.Body className="text-center">
                       <div className={`action-icon bg-${action.color}`}>
@@ -155,37 +282,45 @@ const UserDashboard = () => {
           </Col>
         </Row>
 
-        {/* Recent Activity Section */}
+        {/* Recent Tests Section */}
         <Row>
           <Col>
             <Card className="activity-card">
               <Card.Header>
-                <h3 className="mb-0">Recent Activity</h3>
+                <h3 className="mb-0">Recent Tests</h3>
               </Card.Header>
               <Card.Body>
-                <div className="activity-list">
-                  <div className="activity-item">
-                    <div className="activity-icon">✅</div>
-                    <div className="activity-content">
-                      <h6>Completed: SSC CGL Typing Test</h6>
-                      <small className="text-muted">2 hours ago • 42 WPM • 95% Accuracy</small>
-                    </div>
+                {recentTests.length > 0 ? (
+                  <div className="activity-list">
+                    {recentTests.slice(0, 5).map((test, index) => (
+                      <div className="activity-item" key={index}>
+                        <div className="activity-icon">
+                          {test.completed ? '✅' : '⏳'}
+                        </div>
+                        <div className="activity-content">
+                          <h6>{test.testName || 'Typing Test'}</h6>
+                          <small className="text-muted">
+                            {test.completedAt ? new Date(test.completedAt).toLocaleString() : 'In Progress'} • 
+                            {test.speed || 0} WPM • 
+                            {test.accuracy || 0}% Accuracy
+                          </small>
+                        </div>
+                        <div className="activity-status">
+                          <Badge bg={test.completed ? 'success' : 'warning'}>
+                            {test.completed ? 'Completed' : 'In Progress'}
+                          </Badge>
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                  <div className="activity-item">
-                    <div className="activity-icon">🎯</div>
-                    <div className="activity-content">
-                      <h6>New Personal Best!</h6>
-                      <small className="text-muted">Yesterday • 48 WPM • 92% Accuracy</small>
-                    </div>
+                ) : (
+                  <div className="text-center py-4">
+                    <p className="text-muted">No recent tests found. Start your first test!</p>
+                    <Button variant="primary" onClick={() => navigate('/all-tests')}>
+                      Take a Test
+                    </Button>
                   </div>
-                  <div className="activity-item">
-                    <div className="activity-icon">📚</div>
-                    <div className="activity-content">
-                      <h6>Started: Delhi Police Typing Course</h6>
-                      <small className="text-muted">3 days ago</small>
-                    </div>
-                  </div>
-                </div>
+                )}
               </Card.Body>
             </Card>
           </Col>

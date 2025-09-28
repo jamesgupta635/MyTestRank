@@ -198,6 +198,115 @@
   font-size: 0.85rem;
 }
 
+/* Level Progress Card */
+.level-progress-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 249, 250, 0.95) 100%);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  border: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.level-progress-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Achievement Cards */
+.achievement-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  border: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.achievement-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.achievement-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.achievement-card:hover .achievement-icon {
+  transform: scale(1.1);
+}
+
+.achievement-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin-bottom: 0.5rem;
+}
+
+.achievement-description {
+  font-size: 0.9rem;
+  color: #718096;
+  margin-bottom: 1rem;
+}
+
+/* Enhanced Activity Items */
+.activity-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.activity-item:hover {
+  background: rgba(102, 126, 234, 0.05);
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 0 -1rem;
+}
+
+.activity-item:last-child {
+  border-bottom: none;
+}
+
+.activity-status {
+  margin-left: auto;
+}
+
+/* Enhanced Buttons */
+.btn {
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Progress Bar Enhancement */
+.progress {
+  height: 12px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+  border-radius: 6px;
+  transition: width 0.6s ease;
+}
+
+/* Loading Spinner */
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .user-dashboard {
@@ -219,6 +328,21 @@
   .welcome-subtitle {
     font-size: 1rem;
   }
+  
+  .achievement-card {
+    margin-bottom: 1rem;
+  }
+  
+  .activity-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .activity-status {
+    margin-left: 0;
+    align-self: flex-end;
+  }
 }
 
 @media (max-width: 576px) {
@@ -233,5 +357,14 @@
   
   .activity-item {
     padding: 0.75rem 0;
+  }
+  
+  .achievement-icon {
+    font-size: 2.5rem;
+  }
+  
+  .dashboard-header .d-flex {
+    flex-direction: column;
+    gap: 0.5rem;
   }
 }
