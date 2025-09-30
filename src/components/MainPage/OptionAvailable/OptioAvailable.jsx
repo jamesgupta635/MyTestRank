@@ -6,7 +6,19 @@ function OptioAvailable() {
   const navigate = useNavigate();
 
   const handleStartDemo = () => {
-    navigate('/test');
+    navigate('/test', {
+      state: {
+        testData: {
+          title: 'Demo Typing Test',
+          durationInMinutes: 1,
+          type: 'Demo',
+          language: 'english',
+          contain: "The quick brown fox jumps over the lazy dog. Practice makes perfect. Keep typing to improve your speed.",
+          discountPercentage: 0
+        },
+        courseData: { name: 'Demo Course' }
+      }
+    });
   };
 
   const handleCourses = () => {
