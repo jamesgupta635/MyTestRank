@@ -65,6 +65,29 @@ const TypingScreen = () => {
     correctWords: 0
   });
 
+  const containerRef = useRef(null);
+
+  const enterExamMode = async () => {
+    try {
+      const element = containerRef.current || document.documentElement;
+      if (!document.fullscreenElement && element?.requestFullscreen) {
+        await element.requestFullscreen({ navigationUI: 'hide' }).catch(() => {});
+      }
+    } catch (e) {
+      // Ignore fullscreen errors
+    }
+  };
+
+  const exitExamMode = async () => {
+    try {
+      if (document.fullscreenElement && document.exitFullscreen) {
+        await document.exitFullscreen().catch(() => {});
+      }
+    } catch (e) {
+      // Ignore exit errors
+    }
+  };
+
   useEffect(() => {
     setSentence(language === "hindi" ? textSamples.hindi.split("") : getTypingText().split(""));
     resetTest();
@@ -102,6 +125,7 @@ const TypingScreen = () => {
     if (!isTyping) {
       setIsTyping(true);
       setTestStartTime(new Date());
+      enterExamMode();
       refs.current.timer = setInterval(() => {
         setTimeLeft(prev => {
           if (prev <= 1) {
@@ -114,6 +138,7 @@ const TypingScreen = () => {
               setFinalResults(getComprehensiveStats());
               setShowResultsPopup(true);
             }, 1000);
+            exitExamMode();
             return 0;
           }
           return prev - 1;
@@ -226,11 +251,43 @@ const TypingScreen = () => {
         setFinalResults(getComprehensiveStats());
         setShowResultsPopup(true);
       }, 500);
+      exitExamMode();
     }
   };
 
+  // Auto-submit if user exits fullscreen, switches tab/app, or window loses focus during test
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      if (isTyping && !document.fullscreenElement) {
+        handleSubmitTest();
+      }
+    };
+
+    const handleVisibilityChange = () => {
+      if (isTyping && document.visibilityState !== 'visible') {
+        handleSubmitTest();
+      }
+    };
+
+    const handleWindowBlur = () => {
+      if (isTyping) {
+        handleSubmitTest();
+      }
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('blur', handleWindowBlur);
+
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('blur', handleWindowBlur);
+    };
+  }, [isTyping]);
+
   return (
-    <Container fluid className={`min-vh-100 d-flex flex-column justify-content-center align-items-center px-3 py-4 ${timeUp ? "bg-danger" : "bg-primary"}`}>
+    <Container ref={containerRef} fluid className={`min-vh-100 d-flex flex-column justify-content-center align-items-center px-3 py-4 ${timeUp ? "bg-danger" : "bg-primary"}`}>
       {testData && (
         <Row className="w-100 justify-content-center mb-4">
           <Col xs={12} sm={11} md={10} lg={9} xl={8} className="mx-auto">
@@ -313,7 +370,7 @@ const TypingScreen = () => {
         testData={testData}
         courseData={courseData}
         onRetry={() => { setShowResultsPopup(false); resetTest(); }}
-        onBackToTests={() => { setShowResultsPopup(false); navigate(-1); }}
+        onBackToTests={() => { setShowResultsPopup(false); exitExamMode(); navigate(-1); }}
         isTyping={isTyping}
         testCompleted={testCompleted}
       />
